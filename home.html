@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fairshare - The Best Expense Sharing App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #667eea 100%);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 80%, rgba(120,119,198,0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255,119,198,0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 40%, rgba(120,219,255,0.2) 0%, transparent 50%);
+            z-index: -1;
+            animation: backgroundShift 20s ease-in-out infinite alternate;
+        }
+        @keyframes backgroundShift {
+            0% { transform: scale(1) rotate(0deg); }
+            100% { transform: scale(1.1) rotate(1deg); }
+        }
+        .hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        .hero-content {
+            max-width: 1000px;
+            animation: slideIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        .logo {
+            font-size: 5em;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #fff, #f0f0f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(255,255,255,0.5); }
+            to { text-shadow: 0 0 30px rgba(255,255,255,0.8), 0 0 40px rgba(255,107,107,0.3); }
+        }
+        .subtitle {
+            font-size: 1.6em;
+            font-weight: 400;
+            margin-bottom: 50px;
+            opacity: 0.95;
+            line-height: 1.6;
+            animation: fadeIn 1s ease-out 0.3s both;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 40px 0;
+            flex-wrap: wrap;
+            animation: fadeIn 1s ease-out 0.6s both;
+        }
+        .stat {
+            text-align: center;
+            margin: 0 20px;
+        }
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #ffd700;
+            display: block;
+        }
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 80px 0;
+            max-width: 1200px;
+            animation: fadeIn 1s ease-out 0.9s both;
+        }
+        .feature {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 20px;
+            padding: 30px 25px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        .feature::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s;
+        }
+        .feature:hover::before {
+            left: 100%;
+        }
+        .feature:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border-color: rgba(255,215,0,0.5);
+        }
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            display: block;
+            animation: iconBounce 2s infinite;
+        }
+        @keyframes iconBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .feature h3 {
+            font-size: 1.5em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+        .feature p {
+            font-size: 1em;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        .btn {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #1e3c72;
+            padding: 20px 50px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.4em;
+            font-weight: 700;
+            transition: all 0.4s;
+            box-shadow: 0 10px 25px rgba(255,215,0,0.4);
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1s ease-out 1.2s both;
+        }
+        .btn::before {
+            content: '\f061';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            margin-right: 10px;
+        }
+        .btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(255,215,0,0.5);
+            color: #1e3c72;
+        }
+        .btn:active {
+            transform: translateY(-2px);
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            opacity: 0.7;
+            font-size: 0.9em;
+            animation: fadeIn 1s ease-out 1.5s both;
+        }
+        @media (max-width: 768px) {
+            .logo { font-size: 3.5em; }
+            .subtitle { font-size: 1.3em; }
+            .stats { flex-direction: column; }
+            .features { grid-template-columns: 1fr; }
+            .stat { margin: 10px 0; }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <div class="logo">Fairshare</div>
+            <p class="subtitle">Revolutionize how you split expenses with intelligent tracking, fair calculations, and seamless settlements. Designed for friends, family, and groups – making money matters simple and stress-free.</p>
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-number">10K+</span>
+                    <span class="stat-label">Happy Users</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">99.9%</span>
+                    <span class="stat-label">Accuracy</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">1M+</span>
+                    <span class="stat-label">Expenses Split</span>
+                </div>
+            </div>
+            <div class="features">
+                <div class="feature">
+                    <i class="fas fa-calculator feature-icon"></i>
+                    <h3>Intelligent Splitting</h3>
+                    <p>Advanced algorithms for equal, exact, percentage, or share-based splits. Handles complex scenarios effortlessly with real-time previews.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-chart-line feature-icon"></i>
+                    <h3>Live Balance Dashboard</h3>
+                    <p>Instant updates on who owes what. Visual charts and notifications keep everyone informed without the hassle.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-exchange-alt feature-icon"></i>
+                    <h3>Optimized Settlements</h3>
+                    <p>AI-powered minimization of transactions. Get the fewest payments possible to settle all debts efficiently.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-mobile-alt feature-icon"></i>
+                    <h3>Mobile-First Design</h3>
+                    <p>Fully responsive interface that works perfectly on any device. Access your expenses anywhere, anytime.</p>
+                </div>
+            </div>
+            <a href="/app" class="btn">Launch App <i class="fas fa-rocket" style="margin-left: 10px;"></i></a>
+        </div>
+        <div class="footer">
+            <p>&copy; 2024 Fairshare. Built with ❤️ for fair sharing.</p>
+        </div>
+    </section>
+</body>
+</html>

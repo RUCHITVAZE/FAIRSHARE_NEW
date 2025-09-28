@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fairshare - Expense Splitter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-share-alt"></i> Fairshare Dashboard</h1>
+            <a href="/" class="nav-btn">← Back to Home</a>
+        </div>
+        
+        <!-- Add Expense Form -->
+        <section class="section">
+            <h2><i class="fas fa-plus-circle"></i> Add Expense</h2>
+            <form id="addExpenseForm">
+                <div class="input-group">
+                    <label for="payer">Payer:</label>
+                    <input type="text" id="payer" placeholder="John" required>
+                </div>
+                <div class="input-group">
+                    <label for="total">Total Amount:</label>
+                    <input type="number" id="total" step="0.01" min="0" required>
+                </div>
+                <div class="input-group">
+                    <label for="participants">Participants (one per line):</label>
+                    <textarea id="participants" rows="3" placeholder="John&#10;Jane&#10;Bob"></textarea>
+                </div>
+                <div class="input-group">
+                    <label>Split Type:</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="splitType" value="equal" checked> <i class="fas fa-equals"></i> Equal</label>
+                        <label><input type="radio" name="splitType" value="exact"> <i class="fas fa-ruler"></i> Exact Amounts</label>
+                        <label><input type="radio" name="splitType" value="percentage"> <i class="fas fa-percent"></i> Percentages</label>
+                        <label><input type="radio" name="splitType" value="shares"> <i class="fas fa-users"></i> Shares</label>
+                    </div>
+                </div>
+                <div id="splitDetailsGroup">
+                    <label id="splitDetailsLabel">Enter details (one per line, format: Name:Value):</label>
+                    <textarea id="splitDetails" rows="3" placeholder="John:100&#10;Jane:150&#10;Bob:50"></textarea>
+                </div>
+                <button type="submit"><i class="fas fa-paper-plane"></i> Add Expense</button>
+            </form>
+        </section>
+
+        <!-- Expenses List -->
+        <section class="section">
+            <h2><i class="fas fa-list"></i> Expenses</h2>
+            <ul id="expensesList">
+                <li class="empty-state">No expenses added yet. Add your first expense above!</li>
+            </ul>
+        </section>
+
+        <!-- Balances -->
+        <section class="section">
+            <h2><i class="fas fa-balance-scale"></i> Balances</h2>
+            <table id="balancesTable">
+                <thead>
+                    <tr>
+                        <th><i class="fas fa-user"></i> Person</th>
+                        <th><i class="fas fa-dollar-sign"></i> Balance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="empty-state"><td colspan="2">No balances to display. Add expenses to see balances!</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Settlements -->
+        <section class="section">
+            <h2><i class="fas fa-exchange-alt"></i> Settlements</h2>
+            <ul id="settlementsList">
+                <li class="empty-state">Compute settlements after adding expenses!</li>
+            </ul>
+            <button id="computeSettlements"><i class="fas fa-calculator"></i> Compute Settlements</button>
+        </section>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
