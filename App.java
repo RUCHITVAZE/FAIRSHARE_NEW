@@ -39,10 +39,13 @@ public class App {
         server.createContext("/balances", new BalancesHandler());
         server.createContext("/settlements", new SettlementsHandler());
         server.createContext("/expenses", new ExpensesHandler());
+        server.createContext("/clear", new ClearHandler());
         server.setExecutor(null);
         server.start();
         System.out.println("Server started on http://localhost:" + PORT);
     }
+
+
 
     static class StaticFileHandler implements HttpHandler {
         @Override
@@ -488,6 +491,30 @@ public class App {
 
             Map<String, Object> response = new HashMap<>();
             response.put("expenses", expenses);
+
+            String responseJson = jsonToString(response);
+            exchange.getResponseHeaders().set("Content-Type", "application/json");
+            exchange.sendResponseHeaders(200, responseJson.getBytes(StandardCharsets.UTF_8).length);
+            OutputStream os = exchange.getResponseBody();
+            os.write(responseJson.getBytes(StandardCharsets.UTF_8));
+            os.close();
+        }
+    }
+
+    static class ClearHandler implements HttpHandler {
+        @Override
+        public void handle(HttpExchange exchange) throws IOException {
+            if (!exchange.getRequestMethod().equals("POST")) {
+                exchange.sendResponseHeaders(405, -1);
+                return;
+            }
+
+            // Clear expenses and balances
+            expenses.clear();
+            balances.clear();
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", true);
 
             String responseJson = jsonToString(response);
             exchange.getResponseHeaders().set("Content-Type", "application/json");

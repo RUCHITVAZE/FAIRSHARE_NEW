@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const balancesTableBody = document.getElementById('balancesTable').querySelector('tbody');
     const settlementsList = document.getElementById('settlementsList');
     const computeSettlementsBtn = document.getElementById('computeSettlements');
+    const clearDataBtn = document.getElementById('clearData');
 
     // Handle split type change
     splitTypeRadios.forEach(radio => {
@@ -118,6 +119,30 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => {
             console.error('Error fetching settlements:', error);
         });
+    });
+
+    // Clear data button
+    clearDataBtn.addEventListener('click', function() {
+        if (confirm('Are you sure you want to clear all expenses and balances? This action cannot be undone.')) {
+            fetch('/clear', {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('All data cleared successfully!');
+                    loadExpenses();
+                    loadBalances();
+                    settlementsList.innerHTML = '<li class="empty-state">Compute settlements after adding expenses!</li>';
+                } else {
+                    alert('Error clearing data.');
+                }
+            })
+            .catch(error => {
+                alert('Error clearing data.');
+                console.error('Error:', error);
+            });
+        }
     });
 
     // Load functions
